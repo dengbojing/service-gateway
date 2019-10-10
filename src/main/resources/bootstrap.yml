@@ -1,0 +1,4 @@
+spring:
+  cloud:
+    zookeeper:
+      connect-string: 121.41.2.219:2181

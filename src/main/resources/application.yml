@@ -1,0 +1,38 @@
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: false
+  application:
+    name: service-gateway
+
+server:
+  port: 8090
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: '*'
+  endpoint:
+    beans:
+      enabled: true
+    gateway:
+      enabled: true
+
+jwt:
+  clientId: yichen.project
+  key: GM43dxXjoaqEHOZ51NDP306qNfmLCPtPGbCKOFfZicM=
+  timeout: 6048000 # 10周
+white:
+  list:
+    - /login
+    - /admin/login
+    - /file/upload
+rateLimit:
+  enable: true
