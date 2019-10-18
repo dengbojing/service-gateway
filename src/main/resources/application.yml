@@ -33,6 +33,6 @@ white:
   list:
     - /login
     - /admin/login
-    - /file/upload
+    - /file/view
 rateLimit:
   enable: true

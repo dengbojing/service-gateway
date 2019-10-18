@@ -5,7 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author dengbojing
@@ -23,6 +25,7 @@ public class WhiteListConfig {
      * @return true为非白名单地址
      */
     public boolean control(String path) {
-        return !list.contains(path);
+        List<String> tempList = list.stream().filter(path::startsWith).collect(Collectors.toList());
+        return tempList.size() == 0;
     }
 }
