@@ -51,12 +51,12 @@ public class SimpleExceptionHandler extends DefaultErrorWebExceptionHandler {
      * @param errorAttributes errorAttributes
      */
     @Override
-    protected HttpStatus getHttpStatus(Map<String, Object> errorAttributes) {
+    protected int getHttpStatus(Map<String, Object> errorAttributes) {
         if (null == errorAttributes) {
-            return HttpStatus.valueOf(500);
+            return 500;
         }
         val status = errorAttributes.get("code");
-        return status != null ? HttpStatus.valueOf((int) status) : HttpStatus.INTERNAL_SERVER_ERROR;
+        return status != null ? (int) status : HttpStatus.INTERNAL_SERVER_ERROR.value();
     }
 
     @Override

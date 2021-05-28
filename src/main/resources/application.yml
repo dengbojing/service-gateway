@@ -8,6 +8,9 @@ spring:
             allowedMethods: "*"
             allowedHeaders: "*"
             allowCredentials: false
+    loadbalancer:
+      ribbon:
+        enabled: false
   application:
     name: service-gateway
 
@@ -35,5 +38,3 @@ white:
     - /admin/login
     - /file/view
     - /api
-rateLimit:
-  enable: true

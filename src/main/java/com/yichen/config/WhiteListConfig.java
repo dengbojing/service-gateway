@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Configuration
 @ConfigurationProperties(prefix = "white")
 public class WhiteListConfig {
-    private Set<String> list = new HashSet<>();
+    private final Set<String> list = new HashSet<>();
 
     /**
      * 判断是否是白名单

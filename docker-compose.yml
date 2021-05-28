@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+    web:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        image: dengbojing/gateway:v4
+        ports:
+            - "8090:8090"
+        networks:
+            - gateway
+    zookeeper:
+        image: zookeeper
+        ports: 
+            - "2181:2181"
+            - "8083:8080"
+        networks:
+            - gateway
+        volumes: 
+            - /f/zookeeper/data/:/data
+            - /f/zookeeper/logs:/logs
+            - /f/zookeeper/datalog:/datalog
+    kafka: 
+        image: wurstmeister/kafka
+        ports:
+            - "9092:9092"
+        environment:
+            KAFKA_ADVERTISED_HOST_NAME: localhost
+            KAFKA_CREATE_TOPICS: "test:1:1"
+            KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+        networks: 
+            - gateway
+        volumes: 
+            - /f/kafka:/kafka
+networks:
+    gateway:

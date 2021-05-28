@@ -1,9 +1,9 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.4.RELEASE'
     id 'java'
+    id 'org.springframework.boot' version  '2.2.2.RELEASE'
+    id 'com.bmuschko.docker-spring-boot-application' version '6.1.3'
+    id 'io.spring.dependency-management' version "1.0.8.RELEASE"
 }
-
-apply plugin: 'io.spring.dependency-management'
 
 group = 'com.yichen'
 version = '0.0.1-SNAPSHOT'
@@ -15,7 +15,7 @@ repositories {
 }
 
 ext {
-    set('springCloudVersion', 'Greenwich.SR1')
+    set('springCloudVersion', 'Hoxton.RELEASE')
 }
 
 dependencies {
@@ -42,5 +42,19 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
     }
 }
+
+docker {
+    springBootApplication {
+        baseImage = 'openjdk:11'
+        ports = [8090]
+        maintainer = 'dengbojing@qq.com'
+        images = ['dengbojing/gateway:v3']
+        jvmArgs = ['-Dspring.profiles.active=production', '-Xmx2048m']
+        mainClassName = 'com.yichen.ServiceGatewayApplication'
+    }
+}
+
+

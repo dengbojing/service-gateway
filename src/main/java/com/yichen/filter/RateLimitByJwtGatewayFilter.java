@@ -27,12 +27,12 @@ import java.util.concurrent.ConcurrentHashMap;
 @Getter
 @Setter
 @AllArgsConstructor
-public class RateLimitByJwtGatewayFilter implements GatewayFilter, Ordered {
+public final class RateLimitByJwtGatewayFilter implements GatewayFilter, Ordered {
     private int capacity;
     private int refillTokens;
     private Duration refillDuration;
-    @Value("${rateLimit,enable}")
-    private boolean enableRateLimit;
+    //@Value("${rateLimit.enable}")
+    private boolean enableRateLimit = true;
 
     private static final Map<String, Bucket> CACHE = new ConcurrentHashMap<>();
 
@@ -56,7 +56,7 @@ public class RateLimitByJwtGatewayFilter implements GatewayFilter, Ordered {
             return chain.filter(exchange);
         }
 
-        String token = exchange.getRequest().getHeaders().getFirst("X-Authorization");
+        //String token = exchange.getRequest().getHeaders().getFirst("X-Authorization");
         String ip = exchange.getRequest().getRemoteAddress().getAddress().getHostAddress();
         Bucket bucket = CACHE.computeIfAbsent(ip, k -> createNewBucket());
 
